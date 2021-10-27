@@ -5,14 +5,28 @@ import (
 	"os"
 	"io"
 	"time"
+	"flag"
 	"sort"
 	"bufio"
 	"strings"
 	"math/rand"
 )
 
+var hir = flag.Bool("h", false, "Complete Hiragana kana")
+var kat = flag.Bool("k", false, "Complete Katakana kana")
+
 func main() {
-	k := gen([]Range{Hempty, HK})
+	flag.Parse()
+
+	var ranges []Range	
+	if *hir {
+		ranges = append(ranges, Hempty, HK, HS, HT, HN, HH, HM, HY, HR, HW, Hn, HG, HZ, HD, HB, HP, HKY, HSH, HCH, HNY, HHY, HMY, HRY, HGY, HJ0, HJ1, HBY, HPY)
+	}
+	if *kat {
+		ranges = append(ranges, Kempty, KK, KS, KT, KN, KH, KM, KY, KR, KW, Kn, KG, KZ, KD, KB, KP, KKY, KSH, KCH, KNY, KHY, KMY, KRY, KGY, KJ0, KJ1, KBY, KPY)
+	}
+
+	k := gen(ranges)
 	r := bufio.NewReader(os.Stdin)
 	rand.Seed(time.Now().UnixNano())
 
