@@ -18,15 +18,8 @@ var kat = flag.Bool("k", false, "Complete Katakana kana")
 func main() {
 	flag.Parse()
 
-	var ranges []Range	
-	if *hir {
-		ranges = append(ranges, Hempty, HK, HS, HT, HN, HH, HM, HY, HR, HW, Hn, HG, HZ, HD, HB, HP, HKY, HSH, HCH, HNY, HHY, HMY, HRY, HGY, HJ0, HJ1, HBY, HPY)
-	}
-	if *kat {
-		ranges = append(ranges, Kempty, KK, KS, KT, KN, KH, KM, KY, KR, KW, Kn, KG, KZ, KD, KB, KP, KKY, KSH, KCH, KNY, KHY, KMY, KRY, KGY, KJ0, KJ1, KBY, KPY)
-	}
-
-	k := gen(ranges)
+	ranges := genranges()
+	k := genkana(ranges)
 	r := bufio.NewReader(os.Stdin)
 	rand.Seed(time.Now().UnixNano())
 
@@ -63,7 +56,149 @@ func perr(msg string, err error) {
 	os.Exit(1)
 }
 
-func gen(ranges []Range) []Romanization {
+func genranges() (r []Range) {
+	args := flag.Args()
+
+	if *hir {
+		r = append(r, 
+			Hempty, HK, HS, HT, HN, HH, HM, HY, HR, HW, Hn, HG, HZ, HD, HB, HP, 
+			HKY, HSH, HCH, HNY, HHY, HMY, HRY, HGY, HJ0, HJ1, HBY, HPY,
+		)
+	} else {
+		for _,arg := range args {
+			switch arg {
+			case "Hempty":
+				r = append(r, Hempty)
+			case "HK":
+				r = append(r, HK)
+			case "HS":
+				r = append(r, HS)
+			case "HT":
+				r = append(r, HT)
+			case "HN":
+				r = append(r, HN)
+			case "HH":
+				r = append(r, HH)
+			case "HM":
+				r = append(r, HM)
+			case "HY":
+				r = append(r, HY)
+			case "HR":
+				r = append(r, HR)
+			case "HW":
+				r = append(r, HW)
+			case "Hn":
+				r = append(r, Hn)
+			case "HG":
+				r = append(r, HG)
+			case "HZ":
+				r = append(r, HZ)
+			case "HD":
+				r = append(r, HD)
+			case "HB":
+				r = append(r, HB)
+			case "HP":
+				r = append(r, HP)
+			case "HKY":
+				r = append(r, HKY)
+			case "HSH":
+				r = append(r, HSH)
+			case "HCH":
+				r = append(r, HCH)
+			case "HNY":
+				r = append(r, HNY)
+			case "HHY":
+				r = append(r, HHY)
+			case "HMY":
+				r = append(r, HMY)
+			case "HRY":
+				r = append(r, HRY)
+			case "HGY":
+				r = append(r, HGY)
+			case "HJ0":
+				r = append(r, HJ0)
+			case "HJ1":
+				r = append(r, HJ1)
+			case "HBY":
+				r = append(r, HBY)
+			case "HPY":
+				r = append(r, HPY)
+			}
+		}
+	}
+
+	if *kat {
+		r = append(r, 
+			Kempty, KK, KS, KT, KN, KH, KM, KY, KR, KW, Kn, KG, KZ, KD, KB, KP, 
+			KKY, KSH, KCH, KNY, KHY, KMY, KRY, KGY, KJ0, KJ1, KBY, KPY,
+		)
+	} else {
+		for _,arg := range args {
+			switch arg {
+			case "Kempty":
+				r = append(r, Kempty)
+			case "KK":
+				r = append(r, KK)
+			case "KS":
+				r = append(r, KS)
+			case "KT":
+				r = append(r, KT)
+			case "KN":
+				r = append(r, KN)
+			case "KH":
+				r = append(r, KH)
+			case "KM":
+				r = append(r, KM)
+			case "KY":
+				r = append(r, KY)
+			case "KR":
+				r = append(r, KR)
+			case "KW":
+				r = append(r, KW)
+			case "Kn":
+				r = append(r, Kn)
+			case "KG":
+				r = append(r, KG)
+			case "KZ":
+				r = append(r, KZ)
+			case "KD":
+				r = append(r, KD)
+			case "KB":
+				r = append(r, KB)
+			case "KP":
+				r = append(r, KP)
+			case "KKY":
+				r = append(r, KKY)
+			case "KSH":
+				r = append(r, KSH)
+			case "KCH":
+				r = append(r, KCH)
+			case "KNY":
+				r = append(r, KNY)
+			case "KHY":
+				r = append(r, KHY)
+			case "KMY":
+				r = append(r, KMY)
+			case "KRY":
+				r = append(r, KRY)
+			case "KGY":
+				r = append(r, KGY)
+			case "KJ0":
+				r = append(r, KJ0)
+			case "KJ1":
+				r = append(r, KJ1)
+			case "KBY":
+				r = append(r, KBY)
+			case "KPY":
+				r = append(r, KPY)
+			}
+		}
+	}
+
+	return
+}
+
+func genkana(ranges []Range) []Romanization {
 	kana := []Romanization {
 		{ "あ", "a", },
 		{ "い", "i", },
