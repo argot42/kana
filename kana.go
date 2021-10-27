@@ -416,7 +416,7 @@ func genkana(ranges []Range) []Romanization {
 		{ "ピョ", "pyo", },
 	}
 	
-	if ranges == nil {
+	if ranges == nil || len(ranges) == 0 {
 		return kana
 	}
 
