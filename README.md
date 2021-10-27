@@ -1,2 +1,4 @@
 # kana
-CLI DJT Kana
+CLI DJT Kana clone
+
+https://djtguide.neocities.org/kana/index.html
