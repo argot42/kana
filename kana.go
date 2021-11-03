@@ -12,10 +12,20 @@ import (
 	"math/rand"
 )
 
-var hir = flag.Bool("h", false, "Complete Hiragana kana")
-var kat = flag.Bool("k", false, "Complete Katakana kana")
+type Romanization struct {
+	Symbol, Romanji string
+}
+
+type Range struct {
+	Start, End uint
+}
+
+
+var hir = flag.Bool("hi", false, "Complete Hiragana kana")
+var kat = flag.Bool("ka", false, "Complete Katakana kana")
 
 func main() {
+	flag.Usage = usage
 	flag.Parse()
 
 	ranges := genranges()
@@ -435,12 +445,80 @@ func genkana(ranges []Range) []Romanization {
 	return k
 }
 
-type Romanization struct {
-	Symbol, Romanji string
+func usage() {
+	out := flag.CommandLine.Output()
+
+	fmt.Fprintf(out, "Usage of %s:\n", os.Args[0])
+	flag.PrintDefaults()
+	fmt.Fprint(out, "  Hiragana:\n")
+	tblprt(out, "Hempty", genkana([]Range{Hempty}))
+	tblprt(out, "HK", genkana([]Range{HK}))
+	tblprt(out, "HS", genkana([]Range{HS}))
+	tblprt(out, "HT", genkana([]Range{HT}))
+	tblprt(out, "HN", genkana([]Range{HN}))
+	tblprt(out, "HH", genkana([]Range{HH}))
+	tblprt(out, "HM", genkana([]Range{HM}))
+	tblprt(out, "HY", genkana([]Range{HY}))
+	tblprt(out, "HR", genkana([]Range{HR}))
+	tblprt(out, "HW", genkana([]Range{HW}))
+	tblprt(out, "Hn", genkana([]Range{Hn}))
+	tblprt(out, "HG", genkana([]Range{HG}))
+	tblprt(out, "HZ", genkana([]Range{HZ}))
+	tblprt(out, "HD", genkana([]Range{HD}))
+	tblprt(out, "HB", genkana([]Range{HB}))
+	tblprt(out, "HP", genkana([]Range{HP}))
+
+	fmt.Fprint(out, "  Hiragana Combinations:\n")
+	tblprt(out, "HKY", genkana([]Range{HKY}))
+	tblprt(out, "HSH", genkana([]Range{HSH}))
+	tblprt(out, "HCH", genkana([]Range{HCH}))
+	tblprt(out, "HNY", genkana([]Range{HNY}))
+	tblprt(out, "HMY", genkana([]Range{HMY}))
+	tblprt(out, "HRY", genkana([]Range{HRY}))
+	tblprt(out, "HGY", genkana([]Range{HGY}))
+	tblprt(out, "HJ0", genkana([]Range{HJ0}))
+	tblprt(out, "HJ1", genkana([]Range{HJ1}))
+	tblprt(out, "HBY", genkana([]Range{HBY}))
+	tblprt(out, "HPY", genkana([]Range{HPY}))
+
+	fmt.Fprint(out, "  Katakana:\n")
+	tblprt(out, "Kempty", genkana([]Range{Kempty}))
+	tblprt(out, "KK", genkana([]Range{KK}))
+	tblprt(out, "KS", genkana([]Range{KS}))
+	tblprt(out, "KT", genkana([]Range{KT}))
+	tblprt(out, "KN", genkana([]Range{KN}))
+	tblprt(out, "KH", genkana([]Range{KH}))
+	tblprt(out, "KM", genkana([]Range{KM}))
+	tblprt(out, "KY", genkana([]Range{KY}))
+	tblprt(out, "KR", genkana([]Range{KR}))
+	tblprt(out, "KW", genkana([]Range{KW}))
+	tblprt(out, "Kn", genkana([]Range{Kn}))
+	tblprt(out, "KG", genkana([]Range{KG}))
+	tblprt(out, "KZ", genkana([]Range{KZ}))
+	tblprt(out, "KD", genkana([]Range{KD}))
+	tblprt(out, "KB", genkana([]Range{KB}))
+	tblprt(out, "KP", genkana([]Range{KP}))
+
+	fmt.Fprint(out, "  Katakana Combinations:\n")
+	tblprt(out, "KKY", genkana([]Range{KKY}))
+	tblprt(out, "KSH", genkana([]Range{KSH}))
+	tblprt(out, "KCH", genkana([]Range{KCH}))
+	tblprt(out, "KNY", genkana([]Range{KNY}))
+	tblprt(out, "KMY", genkana([]Range{KMY}))
+	tblprt(out, "KRY", genkana([]Range{KRY}))
+	tblprt(out, "KGY", genkana([]Range{KGY}))
+	tblprt(out, "KJ0", genkana([]Range{KJ0}))
+	tblprt(out, "KJ1", genkana([]Range{KJ1}))
+	tblprt(out, "KBY", genkana([]Range{KBY}))
+	tblprt(out, "KPY", genkana([]Range{KPY}))
 }
 
-type Range struct {
-	Start, End uint
+func tblprt(out io.Writer, header string, line []Romanization) {
+	fmt.Fprintf(out, "\t%s:", header)
+	for _,v := range line {
+		fmt.Fprintf(out, " %s", v.Symbol)
+	}
+	fmt.Fprintln(out)
 }
 
 /* Hiragana */
