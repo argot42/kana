@@ -67,7 +67,16 @@ func perr(msg string, err error) {
 }
 
 func genranges() (r []Range) {
-	args := flag.Args()
+	var args []string
+	m := map[string]bool{}
+
+	// remove repeated arguments
+	for _,v := range flag.Args() {
+		if !m[v] {
+			args = append(args, v)
+			m[v] = true
+		}
+	}
 
 	if *hir {
 		r = append(r, 
