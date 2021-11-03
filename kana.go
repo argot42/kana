@@ -71,14 +71,14 @@ func genranges() (r []Range) {
 
 	if *hir {
 		r = append(r, 
-			Hempty, HK, HS, HT, HN, HH, HM, HY, HR, HW, Hn, HG, HZ, HD, HB, HP, 
+			H, HK, HS, HT, HN, HH, HM, HY, HR, HW, Hn, HG, HZ, HD, HB, HP, 
 			HKY, HSH, HCH, HNY, HHY, HMY, HRY, HGY, HJ0, HJ1, HBY, HPY,
 		)
 	} else {
 		for _,arg := range args {
 			switch arg {
-			case "Hempty":
-				r = append(r, Hempty)
+			case "H":
+				r = append(r, H)
 			case "HK":
 				r = append(r, HK)
 			case "HS":
@@ -139,14 +139,14 @@ func genranges() (r []Range) {
 
 	if *kat {
 		r = append(r, 
-			Kempty, KK, KS, KT, KN, KH, KM, KY, KR, KW, Kn, KG, KZ, KD, KB, KP, 
+			K, KK, KS, KT, KN, KH, KM, KY, KR, KW, Kn, KG, KZ, KD, KB, KP, 
 			KKY, KSH, KCH, KNY, KHY, KMY, KRY, KGY, KJ0, KJ1, KBY, KPY,
 		)
 	} else {
 		for _,arg := range args {
 			switch arg {
-			case "Kempty":
-				r = append(r, Kempty)
+			case "K":
+				r = append(r, K)
 			case "KK":
 				r = append(r, KK)
 			case "KS":
@@ -451,7 +451,7 @@ func usage() {
 	fmt.Fprintf(out, "Usage of %s:\n", os.Args[0])
 	flag.PrintDefaults()
 	fmt.Fprint(out, "  Hiragana:\n")
-	tblprt(out, "Hempty", genkana([]Range{Hempty}))
+	tblprt(out, "H ", genkana([]Range{H}))
 	tblprt(out, "HK", genkana([]Range{HK}))
 	tblprt(out, "HS", genkana([]Range{HS}))
 	tblprt(out, "HT", genkana([]Range{HT}))
@@ -482,7 +482,7 @@ func usage() {
 	tblprt(out, "HPY", genkana([]Range{HPY}))
 
 	fmt.Fprint(out, "  Katakana:\n")
-	tblprt(out, "Kempty", genkana([]Range{Kempty}))
+	tblprt(out, "K ", genkana([]Range{K}))
 	tblprt(out, "KK", genkana([]Range{KK}))
 	tblprt(out, "KS", genkana([]Range{KS}))
 	tblprt(out, "KT", genkana([]Range{KT}))
@@ -522,7 +522,7 @@ func tblprt(out io.Writer, header string, line []Romanization) {
 }
 
 /* Hiragana */
-var Hempty Range = Range {
+var H Range = Range {
 	0, 4,
 }
 var HK Range = Range {
@@ -608,7 +608,7 @@ var HPY Range = Range {
 	104, 106,
 }
 /* Katakana */
-var Kempty Range = Range {
+var K Range = Range {
 	107, 111,
 }
 var KK Range = Range {
